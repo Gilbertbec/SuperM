@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70AE04FD-0AA3-4B31-8A21-5A6CCB3C5469}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SuperM.UI.WinForm</RootNamespace>
+    <AssemblyName>SuperM.UI.WinForm</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CheckOut\CheckOutEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckOut\CheckOutEditor.Designer.cs">
+      <DependentUpon>CheckOutEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CheckOut\Receipt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckOut\Receipt.Designer.cs">
+      <DependentUpon>Receipt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\InventoryEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventory\InventoryEditor.designer.cs">
+      <DependentUpon>InventoryEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\OrderDetailEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventory\OrderDetailEditor.designer.cs">
+      <DependentUpon>OrderDetailEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\OrderEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventory\OrderEditor.designer.cs">
+      <DependentUpon>OrderEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory\StockInEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventory\StockInEditor.designer.cs">
+      <DependentUpon>StockInEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Product\CategoryEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product\CategoryEditor.designer.cs">
+      <DependentUpon>CategoryEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Organization\CompanyEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Organization\CompanyEditor.designer.cs">
+      <DependentUpon>CompanyEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Organization\DepartmentEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Organization\DepartmentEditor.designer.cs">
+      <DependentUpon>DepartmentEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Organization\EmployeeEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Organization\EmployeeEditor.designer.cs">
+      <DependentUpon>EmployeeEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AuthorityManagement\GroupEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AuthorityManagement\GroupEditor.designer.cs">
+      <DependentUpon>GroupEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AuthorityManagement\GroupSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AuthorityManagement\GroupSelector.designer.cs">
+      <DependentUpon>GroupSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AuthorityManagement\IGroupHolder.cs" />
+    <Compile Include="AuthorityManagement\IUserHolder.cs" />
+    <Compile Include="Login\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\NewTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AuthorityManagement\PermissionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AuthorityManagement\PermissionEditor.designer.cs">
+      <DependentUpon>PermissionEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Organization\PositionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Organization\PositionEditor.designer.cs">
+      <DependentUpon>PositionEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Product\ISupplierHolder.cs" />
+    <Compile Include="Product\ProductEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product\ProductEditor.designer.cs">
+      <DependentUpon>ProductEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Product\ProductTypesEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product\ProductTypesEditor.Designer.cs">
+      <DependentUpon>ProductTypesEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Product\SupplierSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product\SupplierSelector.designer.cs">
+      <DependentUpon>SupplierSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Product\SupplierEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Product\SupplierEditor.designer.cs">
+      <DependentUpon>SupplierEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\UIBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\UIBuilder.Designer.cs">
+      <DependentUpon>UIBuilder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AuthorityManagement\UserEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AuthorityManagement\UserEditor.designer.cs">
+      <DependentUpon>UserEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AuthorityManagement\UserGroupEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AuthorityManagement\UserGroupEditor.designer.cs">
+      <DependentUpon>UserGroupEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\UserLogined.cs" />
+    <Compile Include="AuthorityManagement\UserSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AuthorityManagement\UserSelector.designer.cs">
+      <DependentUpon>UserSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\VerificationHelper.cs" />
+    <EmbeddedResource Include="CheckOut\CheckOutEditor.resx">
+      <DependentUpon>CheckOutEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckOut\Receipt.resx">
+      <DependentUpon>Receipt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory\InventoryEditor.resx">
+      <DependentUpon>InventoryEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory\OrderDetailEditor.resx">
+      <DependentUpon>OrderDetailEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory\OrderEditor.resx">
+      <DependentUpon>OrderEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory\StockInEditor.resx">
+      <DependentUpon>StockInEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Organization\CompanyEditor.resx">
+      <DependentUpon>CompanyEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Organization\DepartmentEditor.resx">
+      <DependentUpon>DepartmentEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Organization\EmployeeEditor.resx">
+      <DependentUpon>EmployeeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuthorityManagement\GroupEditor.resx">
+      <DependentUpon>GroupEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuthorityManagement\GroupSelector.resx">
+      <DependentUpon>GroupSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuthorityManagement\PermissionEditor.resx">
+      <DependentUpon>PermissionEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Organization\PositionEditor.resx">
+      <DependentUpon>PositionEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product\CategoryEditor.resx">
+      <DependentUpon>CategoryEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product\ProductEditor.resx">
+      <DependentUpon>ProductEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product\ProductTypesEditor.resx">
+      <DependentUpon>ProductTypesEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product\SupplierSelector.resx">
+      <DependentUpon>SupplierSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Product\SupplierEditor.resx">
+      <DependentUpon>SupplierEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Common\UIBuilder.resx">
+      <DependentUpon>UIBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuthorityManagement\UserEditor.resx">
+      <DependentUpon>UserEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuthorityManagement\UserGroupEditor.resx">
+      <DependentUpon>UserGroupEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuthorityManagement\UserSelector.resx">
+      <DependentUpon>UserSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperM.Business.Services\SuperM.Business.Services.csproj">
+      <Project>{caea5dcc-ad88-4509-86de-f6d10d49c761}</Project>
+      <Name>SuperM.Business.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperM.Data.Entities\SuperM.Data.Entities.csproj">
+      <Project>{27d4de9e-2e3e-4ef3-9f1c-18f70df60df1}</Project>
+      <Name>SuperM.Data.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperM.Data.Repositories\SuperM.Data.Repositories.csproj">
+      <Project>{7719be04-fb01-40ff-8b67-757ff38d0a71}</Project>
+      <Name>SuperM.Data.Repositories</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="img\MSN.ICO" />
+    <Content Include="img\secure.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

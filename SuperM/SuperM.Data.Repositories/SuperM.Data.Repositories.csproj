@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7719BE04-FB01-40FF-8B67-757FF38D0A71}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SuperM.Data.Repositories</RootNamespace>
+    <AssemblyName>SuperM.Data.Repositories</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Migrations\201803031446476_initial.cs" />
+    <Compile Include="Migrations\201803031446476_initial.Designer.cs">
+      <DependentUpon>201803031446476_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803031449290_initial1.cs" />
+    <Compile Include="Migrations\201803031451030_StockIn_Inventory.cs" />
+    <Compile Include="Migrations\201803031451030_StockIn_Inventory.Designer.cs">
+      <DependentUpon>201803031451030_StockIn_Inventory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803032049425_Add_Order_OrderDetail_Receipt_OrderHistory_OrderDetailHistory_ProductHistroy.cs" />
+    <Compile Include="Migrations\201803032049425_Add_Order_OrderDetail_Receipt_OrderHistory_OrderDetailHistory_ProductHistroy.Designer.cs">
+      <DependentUpon>201803032049425_Add_Order_OrderDetail_Receipt_OrderHistory_OrderDetailHistory_ProductHistroy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803032056230_Alter_OrderHistory_OrderDetailHistories.cs" />
+    <Compile Include="Migrations\201803032056230_Alter_OrderHistory_OrderDetailHistories.Designer.cs">
+      <DependentUpon>201803032056230_Alter_OrderHistory_OrderDetailHistories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803171513236_Add_ShoppingCart.cs" />
+    <Compile Include="Migrations\201803171513236_Add_ShoppingCart.Designer.cs">
+      <DependentUpon>201803171513236_Add_ShoppingCart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803172016521_Modify_ProductId_In_ShoppingCart.cs" />
+    <Compile Include="Migrations\201803172016521_Modify_ProductId_In_ShoppingCart.Designer.cs">
+      <DependentUpon>201803172016521_Modify_ProductId_In_ShoppingCart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="SuperMContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperM.Data.Entities\SuperM.Data.Entities.csproj">
+      <Project>{27d4de9e-2e3e-4ef3-9f1c-18f70df60df1}</Project>
+      <Name>SuperM.Data.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803031446476_initial.resx">
+      <DependentUpon>201803031446476_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803031449290_initial1.resx">
+      <DependentUpon>201803031449290_initial1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803031451030_StockIn_Inventory.resx">
+      <DependentUpon>201803031451030_StockIn_Inventory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803032049425_Add_Order_OrderDetail_Receipt_OrderHistory_OrderDetailHistory_ProductHistroy.resx">
+      <DependentUpon>201803032049425_Add_Order_OrderDetail_Receipt_OrderHistory_OrderDetailHistory_ProductHistroy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803032056230_Alter_OrderHistory_OrderDetailHistories.resx">
+      <DependentUpon>201803032056230_Alter_OrderHistory_OrderDetailHistories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803171513236_Add_ShoppingCart.resx">
+      <DependentUpon>201803171513236_Add_ShoppingCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803172016521_Modify_ProductId_In_ShoppingCart.resx">
+      <DependentUpon>201803172016521_Modify_ProductId_In_ShoppingCart.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

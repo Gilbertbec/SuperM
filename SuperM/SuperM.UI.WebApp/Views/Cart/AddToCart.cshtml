@@ -1,0 +1,61 @@
+﻿@model SuperM.Data.Entities.ShoppingCart
+
+@{
+    ViewBag.Title = "AddToCart";
+}
+
+<h2>AddToCart</h2>
+
+
+@using (Html.BeginForm("UpdateShoppingCart", "Cart", this.Model, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ShoppingCart</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ShoppingCartId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Product.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+				@Html.DisplayName((string)ViewBag.ProductName)
+                @Html.DisplayFor(model => model.Product.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Product.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QuantityToBuy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.QuantityToBuy, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.QuantityToBuy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				@Html.HiddenFor(model => model.ProductId)
+				@Html.HiddenFor(model => model.CustomerId)
+				<input type="submit" value="Save" class="btn btn-default" />
+			</div>
+        </div>
+    </div>
+}
+
+	<div>
+		@Html.ActionLink("Back to List", "Index","ShoppingList")
+	</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

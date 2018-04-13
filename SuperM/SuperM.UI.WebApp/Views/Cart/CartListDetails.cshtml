@@ -1,0 +1,17 @@
+﻿@model SuperM.Data.Entities.ShoppingCart
+
+@{
+	@Model.Product.Name
+
+	@*@Html.Partial("Cart_Product_Details", Model.Product);*@
+
+	@Html.EditorFor(x => x.Product.Name);
+	@Html.DisplayFor(x => x.Product.SellingPrice);
+	@Html.DisplayName(Model.Product.SellingPrice.ToString());
+	@Html.Display(Model.Product.SellingPrice.ToString());
+
+	@Html.DisplayFor(x => x.QuantityToBuy);
+	@Html.DisplayName(Model.QuantityToBuy.ToString());
+	@Html.Display(Model.QuantityToBuy.ToString());
+	@:-----------------------------------------
+}

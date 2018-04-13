@@ -1,0 +1,89 @@
+﻿@model SuperM.Data.Entities.Inventory[]
+
+@{
+	ViewBag.Title = "InventoryList";
+}
+
+<h2>InventoryList</h2>
+<div>
+	<h4>Inventory</h4>
+	<hr />
+	@foreach (var inventory in Model)
+	{
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayName(inventory.Product.Name)
+		</dt>
+
+		<dd>
+			Product Detail:
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => inventory.Product.ProductId)
+
+			@Html.HiddenFor(model => inventory.ProductId)
+			@Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => inventory.Product.ProductId)
+		</dd>
+
+		<dt>
+			</dt>
+		<dd>
+			@Html.RouteLink(
+ "Detail",
+ new
+ {
+	 controller = "ProductDetail",
+	 action = "Index",
+	 productId = inventory.ProductId
+ }, new { target = "_blank" }
+ )
+		</dd>
+
+		<dt>
+			Supplier Name
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => inventory.Supplier.Name)
+		</dd>
+
+		<dt>
+			Stock quantity
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => inventory.Count)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => inventory.Product.SellingPrice)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => inventory.Product.SellingPrice)
+		</dd>
+	</dl>
+
+	<p>
+		@*@using (Html.BeginRouteForm("AddToCart",
+		new {ncontroller = "Cart",action = "AddToCart",product = inventory.Product},FormMethod.Post))
+		{
+		@Html.HiddenFor(model => inventory.ProductId)
+		@Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+		<input type="submit" class="btn btn-success" value="Add to cart" />
+		}*@
+		@using (Html.BeginForm("AddToCart", "Cart", inventory.Product, FormMethod.Post))
+		{
+			@Html.HiddenFor(model => inventory.Product)
+			@Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+			<input type="submit" class="btn btn-success" value="Add to cart" />
+		}
+	</p>
+	}
+</div>
+

@@ -1,0 +1,11 @@
+﻿@model SuperM.Data.Entities.Product
+
+@{ 
+	@Model.Name
+	@Model.PurchasedPrice
+
+	@Html.EditorFor(x => x.Name);
+	@Html.DisplayFor(x => x.SellingPrice);
+	@Html.DisplayName(Model.SellingPrice.ToString());
+	@Html.Display(Model.SellingPrice.ToString());
+}

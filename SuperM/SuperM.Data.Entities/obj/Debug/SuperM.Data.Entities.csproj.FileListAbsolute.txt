@@ -1,0 +1,7 @@
+D:\MVC\Lab\SuperM\GitTest\SuperM.Data.Entities\bin\Debug\SuperM.Data.Entities.dll.config
+D:\MVC\Lab\SuperM\GitTest\SuperM.Data.Entities\bin\Debug\SuperM.Data.Entities.dll
+D:\MVC\Lab\SuperM\GitTest\SuperM.Data.Entities\bin\Debug\SuperM.Data.Entities.pdb
+D:\MVC\Lab\SuperM\GitTest\SuperM.Data.Entities\obj\Debug\SuperM.Data.Entities.csproj.CoreCompileInputs.cache
+D:\MVC\Lab\SuperM\GitTest\SuperM.Data.Entities\obj\Debug\SuperM.Data.Entities.dll
+D:\MVC\Lab\SuperM\GitTest\SuperM.Data.Entities\obj\Debug\SuperM.Data.Entities.pdb
+D:\MVC\Lab\SuperM\GitTest\SuperM.Data.Entities\obj\Debug\SuperM.Data.Entities.csprojResolveAssemblyReference.cache
