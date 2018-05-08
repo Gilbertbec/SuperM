@@ -1,0 +1,6 @@
+C:\Users\Gilbert\Documents\GitHub\SuperM\SuperM\SuperM.Data.Entities\bin\Debug\SuperM.Data.Entities.dll.config
+C:\Users\Gilbert\Documents\GitHub\SuperM\SuperM\SuperM.Data.Entities\bin\Debug\SuperM.Data.Entities.dll
+C:\Users\Gilbert\Documents\GitHub\SuperM\SuperM\SuperM.Data.Entities\bin\Debug\SuperM.Data.Entities.pdb
+C:\Users\Gilbert\Documents\GitHub\SuperM\SuperM\SuperM.Data.Entities\obj\Debug\SuperM.Data.Entities.csproj.CoreCompileInputs.cache
+C:\Users\Gilbert\Documents\GitHub\SuperM\SuperM\SuperM.Data.Entities\obj\Debug\SuperM.Data.Entities.dll
+C:\Users\Gilbert\Documents\GitHub\SuperM\SuperM\SuperM.Data.Entities\obj\Debug\SuperM.Data.Entities.pdb
