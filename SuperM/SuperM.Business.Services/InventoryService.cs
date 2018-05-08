@@ -83,12 +83,6 @@ namespace SuperM.Business.Services
             _context.SaveChanges();
         }
 
-        //public void SubtractProductQuantityByProductId(int inventoryId)
-        //{
-        //	Inventory inventory = GetInventoryById(inventoryId);
-        //	_context.Inventories.Remove(inventory);
-        //	_context.SaveChanges();
-        //}
         public void SaleOut(int productId, int Quantity)
         {
             var Inventory = GetInventoryByProductId(productId);
