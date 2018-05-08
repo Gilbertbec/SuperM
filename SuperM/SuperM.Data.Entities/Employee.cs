@@ -1,56 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SuperM.Data.Entities
+﻿namespace SuperM.Data.Entities
 {
-	public class Employee
-	{
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int EmployeeId { get; set; }
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
-		[Required]
-		public string Name { get; set; }
+    public class Employee
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int EmployeeId { get; set; }
 
-		public int PositionId { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-		[ForeignKey("PositionId")]
-		public virtual Position Position { get; set; }
+        public int PositionId { get; set; }
 
-		public int DepartmentId { get; set; }
+        [ForeignKey("PositionId")]
+        public virtual Position Position { get; set; }
 
-		[ForeignKey("DepartmentId")]
-		public virtual Department Department { get; set; }
+        public int DepartmentId { get; set; }
 
-		public string FirstName { get; set; }
+        [ForeignKey("DepartmentId")]
+        public virtual Department Department { get; set; }
 
-		public string MiddleName { get; set; }
+        public string FirstName { get; set; }
 
-		public string LastName { get; set; }
+        public string MiddleName { get; set; }
 
-		public string Gender { get; set; }
+        public string LastName { get; set; }
 
-		public DateTime BirthDay { get; set; }
+        public string Gender { get; set; }
 
-		public DateTime EntryTime { get; set; }
+        public DateTime BirthDay { get; set; }
 
-		public string Education { get; set; }
+        public DateTime EntryTime { get; set; }
 
-		public string Profession { get; set; }
+        public string Education { get; set; }
 
-		public string Language { get; set; }
+        public string Profession { get; set; }
 
-		public string Specialty { get; set; }
+        public string Language { get; set; }
 
-		public string FamilyAddress { get; set; }
+        public string Specialty { get; set; }
 
-		public string EmergencyContact { get; set; }
+        public string FamilyAddress { get; set; }
 
-		public string Photo { get; set; }
-	}
+        public string EmergencyContact { get; set; }
+
+        public string Photo { get; set; }
+    }
 }

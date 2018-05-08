@@ -1,42 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SuperM.Data.Entities
+﻿namespace SuperM.Data.Entities
 {
-	public class ProductHistory
-	{
-		public int ProductHistoryId { get; set; }
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
-		public int ProductId { get; set; }
+    public class ProductHistory
+    {
+        public int ProductHistoryId { get; set; }
 
-		[Required]
-		public string Name { get; set; }
+        public int ProductId { get; set; }
 
-		public string Specification { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-		public int? CategoryId { get; set; }
+        public string Specification { get; set; }
 
-		[ForeignKey("CategoryId")]
-		public virtual Category Category { get; set; }
+        public int? CategoryId { get; set; }
 
-		public string Description { get; set; }
+        [ForeignKey("CategoryId")]
+        public virtual Category Category { get; set; }
 
-		public decimal PurchasedPrice { get; set; }
+        public string Description { get; set; }
 
-		public decimal SellingPrice { get; set; }
+        public decimal PurchasedPrice { get; set; }
 
-		public int? SupplierId { get; set; }
+        public decimal SellingPrice { get; set; }
 
-		[ForeignKey("SupplierId")]
-		public virtual Supplier Supplier { get; set; }
+        public int? SupplierId { get; set; }
 
-		public DateTime ExpirationDate { get; set; }
+        [ForeignKey("SupplierId")]
+        public virtual Supplier Supplier { get; set; }
 
-		public DateTime PurchasedDate { get; set; }
-	}
+        public DateTime ExpirationDate { get; set; }
+
+        public DateTime PurchasedDate { get; set; }
+    }
 }

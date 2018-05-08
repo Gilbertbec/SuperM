@@ -1,18 +1,15 @@
-﻿using SuperM.Business.Services;
-using SuperM.Data.Entities;
-using SuperM.UI.WebApp.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace SuperM.UI.WebApp.Controllers
+﻿namespace SuperM.UI.WebApp.Controllers
 {
+    using SuperM.Business.Services;
+    using SuperM.Data.Entities;
+    using System.Collections.Generic;
+    using System.Web.Mvc;
+
     public class CartController : Controller
     {
-		public ShoppingCartService ShoppingCartService { get; set; }
-		public ProductService ProductService { get; set; }
+        public ShoppingCartService ShoppingCartService { get; set; }
+
+        public ProductService ProductService { get; set; }
 
         // GET: Cart
         public ActionResult Index()
@@ -20,20 +17,20 @@ namespace SuperM.UI.WebApp.Controllers
             return View();
         }
 
-		public ActionResult AddToCart(Product product)
-		{
-			ViewBag.ProductName = product.Name;
-			string productName = ProductService.GetProductById(product.ProductId).Name;
-			ShoppingCart shoppingCart = new ShoppingCart()
-			{
-				CustomerId = 1,
-				ProductId = product.ProductId
-			};
-			return View(shoppingCart);
-		}
+        public ActionResult AddToCart(Product product)
+        {
+            ViewBag.ProductName = product.Name;
+            string productName = ProductService.GetProductById(product.ProductId).Name;
+            ShoppingCart shoppingCart = new ShoppingCart()
+            {
+                CustomerId = 1,
+                ProductId = product.ProductId
+            };
+            return View(shoppingCart);
+        }
 
-		// GET: Cart/Details/5
-		public ActionResult Details(int id)
+        // GET: Cart/Details/5
+        public ActionResult Details(int id)
         {
             return View();
         }
@@ -41,7 +38,7 @@ namespace SuperM.UI.WebApp.Controllers
         // GET: Cart/Create
         public ActionResult Create()
         {
-			return View();
+            return View();
         }
 
         // POST: Cart/Create
@@ -50,9 +47,9 @@ namespace SuperM.UI.WebApp.Controllers
         {
             try
             {
-				ShoppingCartService.UpdateShoppingCartByShoppingCart(shoppingCart);
+                ShoppingCartService.UpdateShoppingCartByShoppingCart(shoppingCart);
 
-				return RedirectToAction("CartList", shoppingCart);
+                return RedirectToAction("CartList", shoppingCart);
             }
             catch
             {
@@ -104,10 +101,10 @@ namespace SuperM.UI.WebApp.Controllers
             }
         }
 
-		public ActionResult CartList(ShoppingCart shoppingCart)
-		{
-			List<ShoppingCart> list = ShoppingCartService.GetShoppingCartByCustomerId(shoppingCart.CustomerId);
-			return View(list);
-		}
+        public ActionResult CartList(ShoppingCart shoppingCart)
+        {
+            List<ShoppingCart> list = ShoppingCartService.GetShoppingCartByCustomerId(shoppingCart.CustomerId);
+            return View(list);
+        }
     }
 }

@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SuperM.Data.Entities
+﻿namespace SuperM.Data.Entities
 {
-	public class Department
-	{
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int DepartmentId { get; set; }
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
-		[Required]
-		public string Name { get; set; }
+    public class Department
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int DepartmentId { get; set; }
 
-		public int? CompanyId { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-		[ForeignKey("CompanyId")]
-		public virtual Company Company { get; set; }
-	}
+        public int? CompanyId { get; set; }
+
+        [ForeignKey("CompanyId")]
+        public virtual Company Company { get; set; }
+    }
 }
