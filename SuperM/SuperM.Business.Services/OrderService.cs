@@ -7,36 +7,36 @@ namespace SuperM.Business.Services
 
     public class OrderService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public OrderService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public List<Order> GetOrderList()
         {
-            var orders = _context.Orders.ToList();
+            var orders = Context.Orders.ToList();
             return orders;
         }
 
         public Order GetOrderById(int orderId)
         {
-            Order order = _context.Orders.FirstOrDefault(x => x.OrderId == orderId);
+            Order order = Context.Orders.FirstOrDefault(x => x.OrderId == orderId);
             return order;
         }
 
         public void Add(Order order)
         {
-            _context.Orders.Add(order);
-            _context.SaveChanges();
+            Context.Orders.Add(order);
+            Context.SaveChanges();
         }
 
         public void DeleteOrderById(int orderId)
         {
             Order order = GetOrderById(orderId);
-            _context.Orders.Remove(order);
-            _context.SaveChanges();
+            Context.Orders.Remove(order);
+            Context.SaveChanges();
         }
 
         public void UpdateOrderByOrder(Order order)
@@ -53,7 +53,7 @@ namespace SuperM.Business.Services
                 Order.Total = order.Total;
                 Order.OrderDetails = order.OrderDetails;
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

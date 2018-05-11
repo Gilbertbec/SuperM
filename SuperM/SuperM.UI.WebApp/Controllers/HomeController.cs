@@ -5,7 +5,7 @@
 
     public class HomeController : Controller
     {
-        public ProductService _productService { get; set; } = new ProductService();
+        public ProductService ProductService { get; set; } = new ProductService();
 
         public ActionResult Index()
         {
@@ -15,7 +15,7 @@
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-            var products = _productService.GetProductList();
+            var products = ProductService.GetProductList();
             return View();
         }
 

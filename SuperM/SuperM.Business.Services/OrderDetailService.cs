@@ -7,36 +7,36 @@ namespace SuperM.Business.Services
 
     public class OrderDetailService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public OrderDetailService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public List<OrderDetail> GetOrderDetailList()
         {
-            var orderDetails = _context.OrderDetails.ToList();
+            var orderDetails = Context.OrderDetails.ToList();
             return orderDetails;
         }
 
         public OrderDetail GetOrderDetailById(int orderDetailId)
         {
-            OrderDetail orderDetail = _context.OrderDetails.FirstOrDefault(x => x.OrderDetailId == orderDetailId);
+            OrderDetail orderDetail = Context.OrderDetails.FirstOrDefault(x => x.OrderDetailId == orderDetailId);
             return orderDetail;
         }
 
         public void Add(OrderDetail orderDetail)
         {
-            _context.OrderDetails.Add(orderDetail);
-            _context.SaveChanges();
+            Context.OrderDetails.Add(orderDetail);
+            Context.SaveChanges();
         }
 
         public void DeleteOrderDetailById(int orderDetailId)
         {
             OrderDetail orderDetail = GetOrderDetailById(orderDetailId);
-            _context.OrderDetails.Remove(orderDetail);
-            _context.SaveChanges();
+            Context.OrderDetails.Remove(orderDetail);
+            Context.SaveChanges();
         }
 
         public void UpdateOrderDetailByOrderDetail(OrderDetail orderDetail)
@@ -55,7 +55,7 @@ namespace SuperM.Business.Services
                 OrderDetail.NationTax = orderDetail.NationTax;
                 OrderDetail.ProvinceTax = orderDetail.ProvinceTax;
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

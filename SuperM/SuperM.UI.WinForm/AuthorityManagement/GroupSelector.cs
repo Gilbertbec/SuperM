@@ -10,11 +10,11 @@ namespace SuperM.UI.WinForm
         /// <summary>
 		/// Declaration
 		/// </summary>
-        GroupService _groupService = new GroupService();
+        GroupService GroupService = new GroupService();
 
-        int _editId = -1;
+        int EditId = -1;
 
-        IGroupHolder _iGroupHolder;
+        IGroupHolder GroupHolder;
 
         /// <summary>
 		/// Load
@@ -27,7 +27,7 @@ namespace SuperM.UI.WinForm
         public GroupSelector(IGroupHolder iGroupHolder)
         {
             InitializeComponent();
-            _iGroupHolder = iGroupHolder;
+            GroupHolder = iGroupHolder;
         }
 
         private void GroupEditor_Load(object sender, EventArgs e)
@@ -49,9 +49,9 @@ namespace SuperM.UI.WinForm
 		/// <param name="e"></param>
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (_editId != -1)
+            if (EditId != -1)
             {
-                _iGroupHolder.GroupId = _editId;
+                GroupHolder.GroupId = EditId;
                 this.Close();
                 this.Dispose();
             }
@@ -63,8 +63,8 @@ namespace SuperM.UI.WinForm
             {
                 return;
             }
-            _editId = (int)dgvGroup.CurrentRow.Cells["GroupId"].Value;
-            Group group = _groupService.GetGroupById(_editId);
+            EditId = (int)dgvGroup.CurrentRow.Cells["GroupId"].Value;
+            Group group = GroupService.GetGroupById(EditId);
             DisplayInformation(group);
         }
 
@@ -85,7 +85,7 @@ namespace SuperM.UI.WinForm
 
         private void BindDataByName()
         {
-            var GroupsBySearched = _groupService.GetGroupListByName(txtName.Text.Trim());
+            var GroupsBySearched = GroupService.GetGroupListByName(txtName.Text.Trim());
             dgvGroup.DataSource = GroupsBySearched;
         }
 
@@ -101,9 +101,8 @@ namespace SuperM.UI.WinForm
                     ((TextBox)item).Clear();
                 }
             }
-
             BindData();
-            _editId = -1;
+            EditId = -1;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -133,7 +132,6 @@ namespace SuperM.UI.WinForm
         {
             bool isNameEmpty = false;
             isNameEmpty = IsInputBoxEmpty(txtName);
-
             return isNameEmpty;
         }
 

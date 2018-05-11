@@ -10,9 +10,9 @@ namespace SuperM.UI.WinForm
         /// <summary>
 		/// Declaration
 		/// </summary>
-        UserService _userService = new UserService();
+        UserService UserService = new UserService();
 
-        int _editId;
+        int EditId = -1;
 
         /// <summary>
 		/// Load
@@ -30,8 +30,8 @@ namespace SuperM.UI.WinForm
 
         private void BindData()
         {
-            ServiceFacade _serviceFacade = new ServiceFacade();
-            _serviceFacade.FillUserDataGridView(this.dgvUsers);
+            ServiceFacade serviceFacade = new ServiceFacade();
+            serviceFacade.FillUserDataGridView(this.dgvUsers);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace SuperM.UI.WinForm
             }
 
             var user = new User();
-            if (_userService.IsNameExisted(txtName.Text.Trim()))
+            if (UserService.IsNameExisted(txtName.Text.Trim()))
             {
                 MessageBox.Show("This " + txtName.Text.Trim() + " already exists.");
             }
@@ -55,7 +55,7 @@ namespace SuperM.UI.WinForm
             {
                 user.Name = txtName.Text;
                 user.Password = txtPassword.Text;
-                _userService.Add(user);
+                UserService.Add(user);
             }
 
             BindData();
@@ -76,7 +76,7 @@ namespace SuperM.UI.WinForm
 
             if (dialogResult == DialogResult.OK)
             {
-                _userService.DeleteUserById(UserId);
+                UserService.DeleteUserById(UserId);
                 BindData();
                 ResetUIInputtdData();
             }
@@ -94,11 +94,10 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            _editId = Convert.ToInt32(dgvUsers.CurrentRow.Cells["UserId"].Value);
-            User user = _userService.GetUserById(_editId);
+            EditId = Convert.ToInt32(dgvUsers.CurrentRow.Cells["UserId"].Value);
+            User user = UserService.GetUserById(EditId);
             txtName.Text = user.Name;
             txtPassword.Text = user.Password;
-
             btnAdd.Enabled = false;
             btnUpdate.Enabled = true;
         }
@@ -110,7 +109,7 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            int userId = _editId;
+            int userId = EditId;
             string name = txtName.Text.Trim();
             string password = txtPassword.Text.Trim();
             User user = new User()
@@ -119,8 +118,7 @@ namespace SuperM.UI.WinForm
                 Name = name,
                 Password = password
             };
-
-            _userService.UpdateUserByUser(user);
+            UserService.UpdateUserByUser(user);
             BindData();
             ResetUIInputtdData();
         }
@@ -142,11 +140,10 @@ namespace SuperM.UI.WinForm
                     ((TextBox)item).Clear();
                 }
             }
-
             BindData();
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
-            _editId = -1;
+            EditId = -1;
         }
 
         /// <summary>
@@ -169,12 +166,12 @@ namespace SuperM.UI.WinForm
         private void BindDataByName()
         {
             string name = txtName.Text.Trim();
-            if (!_userService.IsNameExisted(name))
+            if (!UserService.IsNameExisted(name))
             {
                 return;
             }
 
-            var UsersBySearched = _userService.GetUserByName(name);
+            var UsersBySearched = UserService.GetUserByName(name);
             dgvUsers.DataSource = UsersBySearched;
         }
 
@@ -187,7 +184,6 @@ namespace SuperM.UI.WinForm
         {
             bool isNameEmpty = false;
             isNameEmpty = VerificationHelper.IsInputBoxEmpty(txtName);
-
             return isNameEmpty;
         }
     }

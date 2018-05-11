@@ -10,9 +10,9 @@ namespace SuperM.UI.WinForm
         /// <summary>
 		/// Declaration
 		/// </summary>
-        PositionService _positionService = new PositionService();
+        PositionService PositionService = new PositionService();
 
-        int _editId;
+        int EditId;
 
         /// <summary>
 		/// Load
@@ -30,8 +30,8 @@ namespace SuperM.UI.WinForm
 
         private void BindData()
         {
-            ServiceFacade _serviceFacade = new ServiceFacade();
-            _serviceFacade.FillPositionDataGridView(this.dgvPosition);
+            ServiceFacade serviceFacade = new ServiceFacade();
+            serviceFacade.FillPositionDataGridView(this.dgvPosition);
         }
 
         /// <summary>
@@ -47,14 +47,14 @@ namespace SuperM.UI.WinForm
             }
 
             var Position = new Position();
-            if (_positionService.IsNameExisted(txtName.Text.Trim()))
+            if (PositionService.IsNameExisted(txtName.Text.Trim()))
             {
                 MessageBox.Show("This " + txtName.Text.Trim() + " already exists.");
             }
             else
             {
                 Position.Name = txtName.Text;
-                _positionService.Add(Position);
+                PositionService.Add(Position);
             }
 
             ReloadForm();
@@ -73,7 +73,7 @@ namespace SuperM.UI.WinForm
 
             if (dialogResult == DialogResult.OK)
             {
-                _positionService.DeletePositionById(PositionId);
+                PositionService.DeletePositionById(PositionId);
                 ReloadForm();
             }
         }
@@ -85,8 +85,8 @@ namespace SuperM.UI.WinForm
 		/// <param name="e"></param>
         private void dgvPosition_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            _editId = Convert.ToInt32(dgvPosition.CurrentRow.Cells["PositionId"].Value);
-            Position position = _positionService.GetPositionById(_editId);
+            EditId = Convert.ToInt32(dgvPosition.CurrentRow.Cells["PositionId"].Value);
+            Position position = PositionService.GetPositionById(EditId);
             txtName.Text = position.Name;
 
             btnAdd.Enabled = false;
@@ -100,7 +100,7 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            int positionId = _editId;
+            int positionId = EditId;
             string name = txtName.Text.Trim();
             Position position = new Position()
             {
@@ -108,7 +108,7 @@ namespace SuperM.UI.WinForm
                 Name = name
             };
 
-            _positionService.UpdatePositionByPosition(position);
+            PositionService.UpdatePositionByPosition(position);
             ReloadForm();
         }
 
@@ -131,7 +131,7 @@ namespace SuperM.UI.WinForm
 
         private void BindDataByName()
         {
-            var PositionsBySearched = _positionService.GetPositionListByName(txtName.Text.Trim());
+            var PositionsBySearched = PositionService.GetPositionListByName(txtName.Text.Trim());
             dgvPosition.DataSource = PositionsBySearched;
         }
 
@@ -158,7 +158,7 @@ namespace SuperM.UI.WinForm
             BindData();
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
-            _editId = -1;
+            EditId = -1;
         }
 
         /// <summary>

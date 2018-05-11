@@ -6,12 +6,12 @@
 
     public class ShoppingListController : Controller
     {
-        public InventoryService inventoryService { get; set; }
+        public InventoryService InventoryService { get; set; }
 
         // GET: ShoppingList
         public ActionResult Index()
         {
-            var inventoryList = inventoryService.GetInventoryList().ToArray();
+            var inventoryList = InventoryService.GetInventoryList().ToArray();
             return View(inventoryList);
         }
     }

@@ -7,49 +7,49 @@ namespace SuperM.Business.Services
 
     public class CategoryService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public CategoryService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public List<Category> GetCategoryList()
         {
-            var categorys = _context.Categories.ToList();
+            var categorys = Context.Categories.ToList();
             return categorys;
         }
 
         public Category GetCategoryById(int categoryId)
         {
-            Category category = _context.Categories.FirstOrDefault(x => x.CategoryId == categoryId);
+            Category category = Context.Categories.FirstOrDefault(x => x.CategoryId == categoryId);
             return category;
         }
 
         public List<Category> GetCategoryListByName(string name)
         {
-            var categorys = _context.Categories.Where(x => x.Name.Contains(name)).ToList();
+            var categorys = Context.Categories.Where(x => x.Name.Contains(name)).ToList();
             return categorys;
         }
 
         public bool IsNameExisted(string name)
         {
             bool isNameExisted = false;
-            isNameExisted = (_context.Categories.Count(x => x.Name == name) > 0);
+            isNameExisted = (Context.Categories.Count(x => x.Name == name) > 0);
             return isNameExisted;
         }
 
         public void Add(Category category)
         {
-            _context.Categories.Add(category);
-            _context.SaveChanges();
+            Context.Categories.Add(category);
+            Context.SaveChanges();
         }
 
         public void DeleteCategoryById(int categoryId)
         {
             Category category = GetCategoryById(categoryId);
-            _context.Categories.Remove(category);
-            _context.SaveChanges();
+            Context.Categories.Remove(category);
+            Context.SaveChanges();
         }
 
         public void UpdateCategoryByCategory(Category category)
@@ -60,7 +60,7 @@ namespace SuperM.Business.Services
                 Category.CategoryId = category.CategoryId;
                 Category.Name = category.Name;
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

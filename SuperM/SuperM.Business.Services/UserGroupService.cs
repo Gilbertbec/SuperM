@@ -7,56 +7,56 @@ namespace SuperM.Business.Services
 
     public class UserGroupService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public UserGroupService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public dynamic GetUserGroupList()
         {
             UserService userService = new UserService();
-            var userGroups = _context.UserGroups.Select(x => new { x.UserGroupId, UserName = x.User.Name, GroupName = x.Group.Name }).ToList();
+            var userGroups = Context.UserGroups.Select(x => new { x.UserGroupId, UserName = x.User.Name, GroupName = x.Group.Name }).ToList();
             return userGroups;
         }
 
         public UserGroup GetUserGroupById(int userGroupId)
         {
-            UserGroup userGroup = _context.UserGroups.FirstOrDefault(x => x.UserGroupId == userGroupId);
+            UserGroup userGroup = Context.UserGroups.FirstOrDefault(x => x.UserGroupId == userGroupId);
             return userGroup;
         }
 
         public UserGroup GetUserGroupByUserId(int userId)
         {
-            UserGroup userGroup = _context.UserGroups.FirstOrDefault(x => x.UserId == userId);
+            UserGroup userGroup = Context.UserGroups.FirstOrDefault(x => x.UserId == userId);
             return userGroup;
         }
 
         public List<UserGroup> GetUserGroupListByName(int userId)
         {
-            var userGroups = _context.UserGroups.Where(x => x.UserId == userId).ToList();
+            var userGroups = Context.UserGroups.Where(x => x.UserId == userId).ToList();
             return userGroups;
         }
 
         public bool IsUserGroupIdExisted(int userGroupId)
         {
             bool isNameExisted = false;
-            isNameExisted = (_context.UserGroups.Count(x => x.UserGroupId == userGroupId) > 0);
+            isNameExisted = (Context.UserGroups.Count(x => x.UserGroupId == userGroupId) > 0);
             return isNameExisted;
         }
 
         public void Add(UserGroup userGroup)
         {
-            _context.UserGroups.Add(userGroup);
-            _context.SaveChanges();
+            Context.UserGroups.Add(userGroup);
+            Context.SaveChanges();
         }
 
         public void DeleteUserGroupById(int userGroupId)
         {
             UserGroup userGroup = GetUserGroupById(userGroupId);
-            _context.UserGroups.Remove(userGroup);
-            _context.SaveChanges();
+            Context.UserGroups.Remove(userGroup);
+            Context.SaveChanges();
         }
 
         public void UpdateUserGroupByUserGroup(UserGroup userGroup)
@@ -68,7 +68,7 @@ namespace SuperM.Business.Services
                 UserGroup.UserId = userGroup.UserId;
                 UserGroup.GroupId = userGroup.GroupId;
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

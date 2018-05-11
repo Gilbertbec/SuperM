@@ -15,13 +15,13 @@ namespace SuperM.UI.WinForm
 
         private int _groupId = 0;
 
+        private int _editId = -1;
+
         UserGroupService _userGroupService = new UserGroupService();
 
-        UserService _userService = new UserService();
+        UserService UserService = new UserService();
 
-        GroupService _groupService = new GroupService();
-
-        int _editId;
+        GroupService GroupService = new GroupService();
 
         /// <summary>
 		/// Load
@@ -43,7 +43,7 @@ namespace SuperM.UI.WinForm
             set
             {
                 _userId = value;
-                User user = _userService.GetUserById(_userId);
+                User user = UserService.GetUserById(_userId);
                 if (user != null)
                 {
                     txtUserName.Text = user.Name;
@@ -60,7 +60,7 @@ namespace SuperM.UI.WinForm
             set
             {
                 _groupId = value;
-                Group group = _groupService.GetGroupById(_groupId);
+                Group group = GroupService.GetGroupById(_groupId);
                 if (group != null)
                 {
                     txtGroupName.Text = group.Name;
@@ -99,7 +99,6 @@ namespace SuperM.UI.WinForm
                 UserGroup.GroupId = GroupId;
                 _userGroupService.Add(UserGroup);
             }
-
             BindData();
             ResetUIInputtdData();
         }
@@ -137,7 +136,6 @@ namespace SuperM.UI.WinForm
             UserId = userGroup.UserId;
             txtGroupName.Text = userGroup.Group.Name;
             GroupId = userGroup.GroupId;
-
             btnAdd.Enabled = false;
             btnUpdate.Enabled = true;
         }
@@ -154,7 +152,6 @@ namespace SuperM.UI.WinForm
                 UserId = userId,
                 GroupId = groupId
             };
-
             _userGroupService.UpdateUserGroupByUserGroup(userGroup);
             BindData();
             ResetUIInputtdData();
@@ -196,7 +193,6 @@ namespace SuperM.UI.WinForm
                     ((TextBox)item).Clear();
                 }
             }
-
             BindData();
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;

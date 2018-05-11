@@ -7,40 +7,40 @@ namespace SuperM.Business.Services
 
     public class OrderDetailsService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public OrderDetailsService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public List<OrderDetail> GetOrderDetailsList()
         {
-            var orderDetailss = _context.OrderDetails.ToList();
+            var orderDetailss = Context.OrderDetails.ToList();
             return orderDetailss;
         }
 
         public OrderDetail GetOrderDetailsById(int orderDetailsId)
         {
-            OrderDetail orderDetails = _context.OrderDetails.FirstOrDefault(x => x.OrderDetailId == orderDetailsId);
+            OrderDetail orderDetails = Context.OrderDetails.FirstOrDefault(x => x.OrderDetailId == orderDetailsId);
             return orderDetails;
         }
 
         public OrderDetail GetOrderDetailsByProductId(int productId)
         {
-            OrderDetail orderDetails = _context.OrderDetails.SingleOrDefault(x => x.ProductId == productId);
+            OrderDetail orderDetails = Context.OrderDetails.SingleOrDefault(x => x.ProductId == productId);
             return orderDetails;
         }
 
         public OrderDetail GetOrderDetailsByOrderAndProductId(int orderId, int productId)
         {
-            OrderDetail orderDetails = _context.OrderDetails.SingleOrDefault(x => x.ProductId == productId && x.OrderId == orderId);
+            OrderDetail orderDetails = Context.OrderDetails.SingleOrDefault(x => x.ProductId == productId && x.OrderId == orderId);
             return orderDetails;
         }
 
         public List<OrderDetail> GetOrderDetailsByOrderId(int orderId)
         {
-            List<OrderDetail> orderDetails = _context.OrderDetails.Where(x => x.OrderId == orderId).ToList();
+            List<OrderDetail> orderDetails = Context.OrderDetails.Where(x => x.OrderId == orderId).ToList();
             return orderDetails;
         }
 
@@ -58,15 +58,15 @@ namespace SuperM.Business.Services
         //}
         public void Add(OrderDetail orderDetails)
         {
-            _context.OrderDetails.Add(orderDetails);
-            _context.SaveChanges();
+            Context.OrderDetails.Add(orderDetails);
+            Context.SaveChanges();
         }
 
         public void DeleteOrderDetailsById(int orderDetailsId)
         {
             OrderDetail orderDetails = GetOrderDetailsById(orderDetailsId);
-            _context.OrderDetails.Remove(orderDetails);
-            _context.SaveChanges();
+            Context.OrderDetails.Remove(orderDetails);
+            Context.SaveChanges();
         }
 
         public void UpdateOrderDetailsByOrderDetails(OrderDetail orderDetails)
@@ -75,7 +75,7 @@ namespace SuperM.Business.Services
             if (OrderDetails != null)
             {
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

@@ -7,30 +7,30 @@
 
     public class ProductServiceBak
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public ProductServiceBak()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public void Add(Product product)
         {
-            _context.Products.Add(product);
-            _context.SaveChanges();
+            Context.Products.Add(product);
+            Context.SaveChanges();
         }
 
         public Product GetProductById(int productId)
         {
-            Product product = _context.Products.FirstOrDefault(i => i.ProductId == productId);
+            Product product = Context.Products.FirstOrDefault(i => i.ProductId == productId);
             return product;
         }
 
         public void DeleteProductById(int productId)
         {
             Product product = GetProductById(productId);
-            _context.Products.Remove(product);
-            _context.SaveChanges();
+            Context.Products.Remove(product);
+            Context.SaveChanges();
         }
 
         public void UpdateProductByProduct(Product p_product)
@@ -48,12 +48,12 @@
                 product.PurchasedDate = p_product.PurchasedDate;
                 product.CategoryId = p_product.CategoryId;
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public List<Product> GetProductList()
         {
-            var products = _context.Products.ToList();
+            var products = Context.Products.ToList();
             return products;
         }
     }

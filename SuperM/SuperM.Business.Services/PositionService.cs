@@ -7,49 +7,49 @@ namespace SuperM.Business.Services
 
     public class PositionService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public PositionService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public List<Position> GetPositionList()
         {
-            var positions = _context.Positions.ToList();
+            var positions = Context.Positions.ToList();
             return positions;
         }
 
         public Position GetPositionById(int positionId)
         {
-            Position position = _context.Positions.FirstOrDefault(x => x.PositionId == positionId);
+            Position position = Context.Positions.FirstOrDefault(x => x.PositionId == positionId);
             return position;
         }
 
         public List<Position> GetPositionListByName(string name)
         {
-            var positions = _context.Positions.Where(x => x.Name.Contains(name)).ToList();
+            var positions = Context.Positions.Where(x => x.Name.Contains(name)).ToList();
             return positions;
         }
 
         public bool IsNameExisted(string name)
         {
             bool isNameExisted = false;
-            isNameExisted = (_context.Positions.Count(x => x.Name == name) > 0);
+            isNameExisted = (Context.Positions.Count(x => x.Name == name) > 0);
             return isNameExisted;
         }
 
         public void Add(Position position)
         {
-            _context.Positions.Add(position);
-            _context.SaveChanges();
+            Context.Positions.Add(position);
+            Context.SaveChanges();
         }
 
         public void DeletePositionById(int positionId)
         {
             Position position = GetPositionById(positionId);
-            _context.Positions.Remove(position);
-            _context.SaveChanges();
+            Context.Positions.Remove(position);
+            Context.SaveChanges();
         }
 
         public void UpdatePositionByPosition(Position position)
@@ -60,7 +60,7 @@ namespace SuperM.Business.Services
                 Position.PositionId = position.PositionId;
                 Position.Name = position.Name;
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

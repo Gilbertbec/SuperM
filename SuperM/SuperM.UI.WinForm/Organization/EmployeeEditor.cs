@@ -10,9 +10,9 @@ namespace SuperM.UI.WinForm
         /// <summary>
 		/// Declaration
 		/// </summary>
-        EmployeeService _employeeService = new EmployeeService();
+        EmployeeService EmployeeService = new EmployeeService();
 
-        int _editId = -1;
+        int EditId = -1;
 
         /// <summary>
 		/// Load
@@ -30,10 +30,10 @@ namespace SuperM.UI.WinForm
 
         private void BindData()
         {
-            ServiceFacade _serviceFacade = new Business.Services.ServiceFacade();
-            _serviceFacade.FillEmployeeDataGridView(this.dgvEmployee);
-            _serviceFacade.FillDepartmentComboBox(this.cboDepartment);
-            _serviceFacade.FillPositionComboBox(this.cboPosition);
+            ServiceFacade serviceFacade = new Business.Services.ServiceFacade();
+            serviceFacade.FillEmployeeDataGridView(this.dgvEmployee);
+            serviceFacade.FillDepartmentComboBox(this.cboDepartment);
+            serviceFacade.FillPositionComboBox(this.cboPosition);
         }
 
         /// <summary>
@@ -48,14 +48,14 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            if (_employeeService.IsNameExisted(txtName.Text.Trim()))
+            if (EmployeeService.IsNameExisted(txtName.Text.Trim()))
             {
                 MessageBox.Show("This " + txtName.Text.Trim() + " already exists.");
             }
             else
             {
                 Employee employee = GetEmployeeFromUI();
-                _employeeService.Add(employee);
+                EmployeeService.Add(employee);
             }
 
             ReloadForm();
@@ -74,7 +74,7 @@ namespace SuperM.UI.WinForm
 
             if (dialogResult == DialogResult.OK)
             {
-                _employeeService.DeleteEmployeeById(EmployeeId);
+                EmployeeService.DeleteEmployeeById(EmployeeId);
                 ReloadForm();
             }
         }
@@ -91,8 +91,8 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            _editId = (int)dgvEmployee.CurrentRow.Cells["EmployeeId"].Value;
-            Employee employee = _employeeService.GetEmployeeById(_editId);
+            EditId = (int)dgvEmployee.CurrentRow.Cells["EmployeeId"].Value;
+            Employee employee = EmployeeService.GetEmployeeById(EditId);
             DisplayInformation(employee);
 
             btnAdd.Enabled = false;
@@ -106,7 +106,7 @@ namespace SuperM.UI.WinForm
                 return;
             }
             Employee employee = GetEmployeeFromUI();
-            _employeeService.UpdateEmployeeByEmployee(employee);
+            EmployeeService.UpdateEmployeeByEmployee(employee);
             ReloadForm();
         }
 
@@ -127,7 +127,7 @@ namespace SuperM.UI.WinForm
 
         private void BindDataByName()
         {
-            var EmployeesBySearched = _employeeService.GetEmployeeListByName(txtName.Text.Trim());
+            var EmployeesBySearched = EmployeeService.GetEmployeeListByName(txtName.Text.Trim());
             dgvEmployee.DataSource = EmployeesBySearched;
         }
 
@@ -150,7 +150,7 @@ namespace SuperM.UI.WinForm
             BindData();
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
-            _editId = -1;
+            EditId = -1;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -167,7 +167,6 @@ namespace SuperM.UI.WinForm
         {
             bool isNameEmpty = false;
             isNameEmpty = VerificationHelper.IsInputBoxEmpty(txtName);
-
             return isNameEmpty;
         }
 
@@ -177,7 +176,7 @@ namespace SuperM.UI.WinForm
 		/// <returns></returns>
         Employee GetEmployeeFromUI()
         {
-            int employeeId = _editId;
+            int employeeId = EditId;
             string name = txtName.Text.Trim();
             int positionId = (int)cboPosition.SelectedValue;
             int departmentId = (int)cboDepartment.SelectedValue;
@@ -215,7 +214,6 @@ namespace SuperM.UI.WinForm
                 EmergencyContact = emergencyContact,
                 Photo = photo
             };
-
             return employee;
         }
 

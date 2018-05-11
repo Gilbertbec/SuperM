@@ -10,15 +10,15 @@ namespace SuperM.UI.WinForm
         /// <summary>
 		/// Declaration
 		/// </summary>
-        InventoryService _inventoryService = new InventoryService();
+        InventoryService InventoryService = new InventoryService();
 
-        ServiceFacade _serviceFacade = new Business.Services.ServiceFacade();
+        ServiceFacade ServiceFacade = new Business.Services.ServiceFacade();
 
-        ChackOutService _orderService = new ChackOutService();
+        ChackOutService OrderService = new ChackOutService();
 
-        int _editId = -1;
+        int EditId = -1;
 
-        int _orderId;
+        int OrderId;
 
         /// <summary>
 		/// Load
@@ -35,7 +35,7 @@ namespace SuperM.UI.WinForm
 
         private void BindData()
         {
-            _serviceFacade.FillInventoryDataGridView(this.dgvInventory);
+            ServiceFacade.FillInventoryDataGridView(this.dgvInventory);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace SuperM.UI.WinForm
             }
 
             var Inventory = new Inventory();
-            if (_inventoryService.IsNameExisted(txtBatch.Text.Trim()))
+            if (InventoryService.IsNameExisted(txtBatch.Text.Trim()))
             {
                 MessageBox.Show("This " + txtBatch.Text.Trim() + " has already existed.");
             }
@@ -59,7 +59,7 @@ namespace SuperM.UI.WinForm
             {
                 Inventory.Batch = txtBatch.Text;
                 //Inventory.CompanyId = (int)cboCompany.SelectedValue;
-                _inventoryService.Add(Inventory);
+                InventoryService.Add(Inventory);
             }
 
             BindData();
@@ -78,7 +78,7 @@ namespace SuperM.UI.WinForm
             DialogResult dialogResult = MessageBox.Show(btnDelete, "Are you really want to Delete Batch:" + Batch, "Confirmation", MessageBoxButtons.OKCancel);
             if (dialogResult == DialogResult.OK)
             {
-                _inventoryService.DeleteInventoryById(InventoryId);
+                InventoryService.DeleteInventoryById(InventoryId);
                 BindData();
                 ReloadForm();
             }
@@ -96,8 +96,8 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            _editId = (int)dgvInventory.CurrentRow.Cells["InventoryId"].Value;
-            Inventory inventory = _inventoryService.GetInventoryById(_editId);
+            EditId = (int)dgvInventory.CurrentRow.Cells["InventoryId"].Value;
+            Inventory inventory = InventoryService.GetInventoryById(EditId);
             DisplayInformation(inventory);
 
             btnAdd.Enabled = false;
@@ -111,7 +111,7 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            int inventoryId = _editId;
+            int inventoryId = EditId;
 
             string batch = txtBatch.Text.Trim();
 
@@ -136,7 +136,7 @@ namespace SuperM.UI.WinForm
             {
                 //InventoryId = inventoryId, Batch = batch, Count = count, Price = price, ProductId = productId, Product = product, SupplierId = supplierId, Supplier = supplier, StockInId = stockInId, StockIn = stockIn, InStockTime = inStockTime
             };
-            _inventoryService.UpdateInventoryByInventory(inventory);
+            InventoryService.UpdateInventoryByInventory(inventory);
             ReloadForm();
         }
 
@@ -157,7 +157,7 @@ namespace SuperM.UI.WinForm
 
         private void BindDataByName()
         {
-            var InventorysBySearched = _inventoryService.GetInventoryListByName(txtBatch.Text.Trim());
+            var InventorysBySearched = InventoryService.GetInventoryListByName(txtBatch.Text.Trim());
             dgvInventory.DataSource = InventorysBySearched;
         }
 
@@ -177,7 +177,7 @@ namespace SuperM.UI.WinForm
             BindData();
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
-            _editId = -1;
+            EditId = -1;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -219,7 +219,7 @@ namespace SuperM.UI.WinForm
                 UserId = UserLogined.UserId,
                 OrderTime = DateTime.Now
             };
-            _orderId = orderFacadeService.GetNewOrderId(order);
+            OrderId = orderFacadeService.GetNewOrderId(order);
         }
 
         /// <summary>

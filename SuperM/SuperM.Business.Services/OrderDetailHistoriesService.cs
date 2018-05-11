@@ -7,36 +7,36 @@ namespace SuperM.Business.Services
 
     public class OrderDetailHistoriesService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public OrderDetailHistoriesService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public List<OrderDetailHistory> GetOrderDetailHistoriesList()
         {
-            var orderDetailHistoriess = _context.OrderDetailHistories.ToList();
+            var orderDetailHistoriess = Context.OrderDetailHistories.ToList();
             return orderDetailHistoriess;
         }
 
         public OrderDetailHistory GetOrderDetailHistoriesById(int orderDetailHistoriesId)
         {
-            OrderDetailHistory orderDetailHistory = _context.OrderDetailHistories.FirstOrDefault(x => x.OrderDetailHistoryId == orderDetailHistoriesId);
+            OrderDetailHistory orderDetailHistory = Context.OrderDetailHistories.FirstOrDefault(x => x.OrderDetailHistoryId == orderDetailHistoriesId);
             return orderDetailHistory;
         }
 
         public void Add(OrderDetailHistory orderDetailHistories)
         {
-            _context.OrderDetailHistories.Add(orderDetailHistories);
-            _context.SaveChanges();
+            Context.OrderDetailHistories.Add(orderDetailHistories);
+            Context.SaveChanges();
         }
 
         public void DeleteOrderDetailHistoriesById(int orderDetailHistoriesId)
         {
             OrderDetailHistory orderDetailHistories = GetOrderDetailHistoriesById(orderDetailHistoriesId);
-            _context.OrderDetailHistories.Remove(orderDetailHistories);
-            _context.SaveChanges();
+            Context.OrderDetailHistories.Remove(orderDetailHistories);
+            Context.SaveChanges();
         }
 
         public void UpdateOrderDetailHistoriesByOrderDetailHistories(OrderDetailHistory orderDetailHistory)
@@ -45,7 +45,7 @@ namespace SuperM.Business.Services
             if (OrderDetailHistories != null)
             {
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

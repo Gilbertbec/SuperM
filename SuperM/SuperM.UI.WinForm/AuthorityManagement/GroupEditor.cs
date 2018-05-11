@@ -10,9 +10,9 @@ namespace SuperM.UI.WinForm
         /// <summary>
 		/// Declaration
 		/// </summary>
-        GroupService _groupService = new GroupService();
+        GroupService GroupService = new GroupService();
 
-        int _editId = -1;
+        int EditId = -1;
 
         /// <summary>
 		/// Load
@@ -30,8 +30,8 @@ namespace SuperM.UI.WinForm
 
         private void BindData()
         {
-            ServiceFacade _serviceFacade = new Business.Services.ServiceFacade();
-            _serviceFacade.FillGroupDataGridView(this.dgvGroup);
+            ServiceFacade serviceFacade = new Business.Services.ServiceFacade();
+            serviceFacade.FillGroupDataGridView(this.dgvGroup);
         }
 
         /// <summary>
@@ -47,14 +47,14 @@ namespace SuperM.UI.WinForm
             }
 
             var Group = new Group();
-            if (_groupService.IsNameExisted(txtName.Text.Trim()))
+            if (GroupService.IsNameExisted(txtName.Text.Trim()))
             {
                 MessageBox.Show("This " + txtName.Text.Trim() + " already exists.");
             }
             else
             {
                 Group.Name = txtName.Text;
-                _groupService.Add(Group);
+                GroupService.Add(Group);
             }
 
             BindData();
@@ -74,7 +74,7 @@ namespace SuperM.UI.WinForm
 
             if (dialogResult == DialogResult.OK)
             {
-                _groupService.DeleteGroupById(GroupId);
+                GroupService.DeleteGroupById(GroupId);
                 BindData();
                 ReloadForm();
             }
@@ -92,10 +92,9 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            _editId = (int)dgvGroup.CurrentRow.Cells["GroupId"].Value;
-            Group group = _groupService.GetGroupById(_editId);
+            EditId = (int)dgvGroup.CurrentRow.Cells["GroupId"].Value;
+            Group group = GroupService.GetGroupById(EditId);
             txtName.Text = group.Name;
-
             btnAdd.Enabled = false;
             btnUpdate.Enabled = true;
         }
@@ -107,14 +106,14 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            int groupId = _editId;
+            int groupId = EditId;
             string name = txtName.Text.Trim();
             Group group = new Group()
             {
                 GroupId = groupId,
                 Name = name
             };
-            _groupService.UpdateGroupByGroup(group);
+            GroupService.UpdateGroupByGroup(group);
             ReloadForm();
         }
 
@@ -135,7 +134,7 @@ namespace SuperM.UI.WinForm
 
         private void BindDataByName()
         {
-            var GroupsBySearched = _groupService.GetGroupListByName(txtName.Text.Trim());
+            var GroupsBySearched = GroupService.GetGroupListByName(txtName.Text.Trim());
             dgvGroup.DataSource = GroupsBySearched;
         }
 
@@ -156,11 +155,10 @@ namespace SuperM.UI.WinForm
                     ((TextBox)item).Clear();
                 }
             }
-
             BindData();
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
-            _editId = -1;
+            EditId = -1;
         }
 
         /// <summary>
@@ -172,7 +170,6 @@ namespace SuperM.UI.WinForm
         {
             bool isNameEmpty = false;
             isNameEmpty = VerificationHelper.IsInputBoxEmpty(txtName);
-
             return isNameEmpty;
         }
     }

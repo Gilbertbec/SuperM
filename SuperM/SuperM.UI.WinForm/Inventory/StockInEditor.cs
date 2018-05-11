@@ -8,19 +8,19 @@ namespace SuperM.UI.WinForm
 
     public partial class StockInEditor : Form
     {
-        ProductService _productService = new ProductService();
+        ProductService ProductService = new ProductService();
 
-        StockInService _stockInService = new StockInService();
+        StockInService StockInService = new StockInService();
 
-        CategoryService _categoryService = new CategoryService();
+        CategoryService CategoryService = new CategoryService();
 
-        ServiceFacade _serviceFacade = new ServiceFacade();
+        ServiceFacade ServiceFacade = new ServiceFacade();
 
-        InventoryService _inventoryService = new InventoryService();
+        InventoryService InventoryService = new InventoryService();
 
-        int _editProductId;
+        int EditProductId;
 
-        int _editStockInId;
+        int EditStockInId;
 
         public StockInEditor()
         {
@@ -29,11 +29,11 @@ namespace SuperM.UI.WinForm
 
         public void BindDataByProductId(int productId)
         {
-            List<Product> products = _productService.GetProductListById(productId);
+            List<Product> products = ProductService.GetProductListById(productId);
             dgvProduct.DataSource = products;
-            Product product = _productService.GetProductById(productId);
+            Product product = ProductService.GetProductById(productId);
             DisplayProduct(product);
-            List<StockIn> inventorys = _stockInService.GetInventoryListByProductId(productId);
+            List<StockIn> inventorys = StockInService.GetInventoryListByProductId(productId);
             dgvInventory.DataSource = inventorys;
         }
 
@@ -45,8 +45,8 @@ namespace SuperM.UI.WinForm
 
         private void BindData()
         {
-            _serviceFacade.FillProductDataGridView(this.dgvProduct);
-            _serviceFacade.FillStockInDataGridView(this.dgvInventory);
+            ServiceFacade.FillProductDataGridView(this.dgvProduct);
+            ServiceFacade.FillStockInDataGridView(this.dgvInventory);
             txtUser.Text = UserLogined.UserName;
             dtpInStockTime.Value = DateTime.Now;
         }
@@ -77,14 +77,14 @@ namespace SuperM.UI.WinForm
             if (IsNameEmpty())
             { return; }
 
-            if (_stockInService.IsNameExisted(txtBatch.Text.Trim()))
+            if (StockInService.IsNameExisted(txtBatch.Text.Trim()))
             {
                 MessageBox.Show("This " + txtBatch.Text.Trim() + " already exists.");
             }
             else
             {
                 int productId = Convert.ToInt32(txtProductId.Text.Trim());
-                Product product = _productService.GetProductById(productId);
+                Product product = ProductService.GetProductById(productId);
                 string batch = txtBatch.Text;
                 int count = Convert.ToInt32(txtCount.Text.Trim());
                 decimal subTotal = Convert.ToDecimal(txtSubtotal.Text.Trim());
@@ -101,7 +101,7 @@ namespace SuperM.UI.WinForm
                     InStockTime = inStockTime
                 };
 
-                int stockInId = _stockInService.Add(stockIn);
+                int stockInId = StockInService.Add(stockIn);
 
 
                 int supplierId = Convert.ToInt32(txtSupplierId.Text);
@@ -116,7 +116,7 @@ namespace SuperM.UI.WinForm
                     StockInId = stockInId
                 };
 
-                _inventoryService.Add(inventory);
+                InventoryService.Add(inventory);
             }
 
             ResetUIInputtdData();
@@ -130,7 +130,7 @@ namespace SuperM.UI.WinForm
 
             if (dialogResult == DialogResult.OK)
             {
-                _stockInService.DeleteInventoryById(InventoryId);
+                StockInService.DeleteInventoryById(InventoryId);
                 ResetUIInputtdData();
             }
         }
@@ -144,16 +144,15 @@ namespace SuperM.UI.WinForm
                     ((TextBox)item).Clear();
                 }
             }
-
             BindData();
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
-            _editProductId = -1;
+            EditProductId = -1;
         }
 
         private void BindDataByName()
         {
-            var InventorysBySearched = _stockInService.GetInventoryListByName(txtBatch.Text.Trim());
+            var InventorysBySearched = StockInService.GetInventoryListByName(txtBatch.Text.Trim());
             dgvInventory.DataSource = InventorysBySearched;
         }
 
@@ -206,10 +205,10 @@ namespace SuperM.UI.WinForm
 
         private void dgvInventory_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            _editStockInId = Convert.ToInt32(dgvInventory.CurrentRow.Cells["StockInId"].Value);
-            StockIn inventory = _stockInService.GetInventoryById(_editStockInId);
+            EditStockInId = Convert.ToInt32(dgvInventory.CurrentRow.Cells["StockInId"].Value);
+            StockIn inventory = StockInService.GetInventoryById(EditStockInId);
 
-            _editProductId = (int)inventory.ProductId;
+            EditProductId = (int)inventory.ProductId;
             txtProductId.Text = inventory.ProductId.ToString();
             txtBatch.Text = inventory.Batch;
             txtCount.Text = inventory.Count.ToString();
@@ -227,7 +226,7 @@ namespace SuperM.UI.WinForm
             if (IsNameEmpty())
             { return; }
 
-            int stockInId = _editStockInId;
+            int stockInId = EditStockInId;
             string name = txtBatch.Text.Trim();
             int count = Convert.ToInt32(txtCount.Text.Trim());
             int productId = Convert.ToInt32(txtProductId.Text.Trim());
@@ -246,7 +245,7 @@ namespace SuperM.UI.WinForm
                 InStockTime = inStockTime,
             };
 
-            _stockInService.UpdateInventoryByInventory(stockIn);
+            StockInService.UpdateInventoryByInventory(stockIn);
             BindData();
             ResetUIInputtdData();
         }
@@ -258,7 +257,7 @@ namespace SuperM.UI.WinForm
             { return; }
 
             txtProductId.Text = dgvProduct.CurrentRow.Cells["ProductId"].Value.ToString();
-            Product product = _productService.GetProductById(Convert.ToInt32(txtProductId.Text));
+            Product product = ProductService.GetProductById(Convert.ToInt32(txtProductId.Text));
 
             if (product != null)
             {
@@ -268,10 +267,10 @@ namespace SuperM.UI.WinForm
 
         private void DisplayProduct(Product product)
         {
-            _editProductId = product.ProductId;
+            EditProductId = product.ProductId;
             txtProductName.Text = product.Name;
             txtSpecification.Text = product.Specification;
-            txtCategoryId.Text = _categoryService.GetCategoryById((int)product.CategoryId).Name;
+            txtCategoryId.Text = CategoryService.GetCategoryById((int)product.CategoryId).Name;
             txtDescription.Text = product.Description;
             txtPurchasedPrice.Text = product.PurchasedPrice.ToString();
             txtSellingPrice.Text = product.SellingPrice.ToString();
@@ -282,7 +281,7 @@ namespace SuperM.UI.WinForm
 
         private void txtProductName_TextChanged(object sender, EventArgs e)
         {
-            List<Product> products = _productService.GetProductListByName(txtProductName.Text.Trim());
+            List<Product> products = ProductService.GetProductListByName(txtProductName.Text.Trim());
             dgvProduct.DataSource = products;
         }
     }

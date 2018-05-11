@@ -6,12 +6,12 @@
 
     public class ProductDetailController : Controller
     {
-        public ProductService productService { get; set; }
+        public ProductService ProductService { get; set; }
 
         // GET: Product
         public ActionResult Index(int productId)
         {
-            Product product = productService.GetProductById(productId);
+            Product product = ProductService.GetProductById(productId);
             return View(product);
         }
     }

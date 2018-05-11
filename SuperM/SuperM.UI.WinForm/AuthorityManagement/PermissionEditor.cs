@@ -11,11 +11,11 @@ namespace SuperM.UI.WinForm
         /// <summary>
 		/// Declaration
 		/// </summary>
-        PermissionService _permissionService = new PermissionService();
+        PermissionService PermissionService = new PermissionService();
 
-        int _editId = -1;
+        int EditId = -1;
 
-        int _groupId = -1;
+        int GroupId = -1;
 
         /// <summary>
 		/// Load
@@ -48,9 +48,9 @@ namespace SuperM.UI.WinForm
         {
             lsbModels.Items.Clear();
 
-            ServiceFacade _serviceFacade = new Business.Services.ServiceFacade();
-            _serviceFacade.FillPermissionDataGridView(this.dgvPermission);
-            _serviceFacade.FillGroupListBox(this.lsbGroup);
+            ServiceFacade serviceFacade = new Business.Services.ServiceFacade();
+            serviceFacade.FillPermissionDataGridView(this.dgvPermission);
+            serviceFacade.FillGroupListBox(this.lsbGroup);
             BindMondels("SuperM.UI.WinForm.exe", "PermissionEditor");
         }
 
@@ -99,7 +99,7 @@ namespace SuperM.UI.WinForm
             }
 
             txtGroup.Text = ((Group)lsbGroup.SelectedItem).Name;
-            _groupId = ((Group)lsbGroup.SelectedItem).GroupId;
+            GroupId = ((Group)lsbGroup.SelectedItem).GroupId;
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            if (_permissionService.IsNameExisted(txtName.Text.Trim()))
+            if (PermissionService.IsNameExisted(txtName.Text.Trim()))
             {
                 //TODO:to be fixed
                 MessageBox.Show("This " + txtName.Text.Trim() + " already exists.");
@@ -124,14 +124,13 @@ namespace SuperM.UI.WinForm
                 var permission = new Permission()
                 {
                     Name = txtName.Text,
-                    GroupId = _groupId,
+                    GroupId = GroupId,
                     ModelName = txtModelName.Text,
                     ControlName = txtControlName.Text
                 };
 
-                _permissionService.Add(permission);
+                PermissionService.Add(permission);
             }
-
             BindData();
             ReloadForm();
         }
@@ -148,7 +147,7 @@ namespace SuperM.UI.WinForm
             DialogResult dialogResult = MessageBox.Show(btnDelete, "Are you really want to Delete Name:" + Name, "Confirmation", MessageBoxButtons.OKCancel);
             if (dialogResult == DialogResult.OK)
             {
-                _permissionService.DeletePermissionById(PermissionId);
+                PermissionService.DeletePermissionById(PermissionId);
                 BindData();
                 ReloadForm();
             }
@@ -166,14 +165,13 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            _editId = (int)dgvPermission.CurrentRow.Cells["PermissionId"].Value;
-            Permission permission = _permissionService.GetPermissionById(_editId);
-            _groupId = permission.GroupId;
+            EditId = (int)dgvPermission.CurrentRow.Cells["PermissionId"].Value;
+            Permission permission = PermissionService.GetPermissionById(EditId);
+            GroupId = permission.GroupId;
             lsbGroup.SelectedValue = permission.GroupId;
             lsbModels.SelectedItem = permission.ModelName;
             lsbControls.SelectedItem = permission.ControlName;
             DisplayInformation(permission);
-
             btnAdd.Enabled = false;
             btnUpdate.Enabled = true;
         }
@@ -185,9 +183,9 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            int permissionId = _editId;
+            int permissionId = EditId;
             string name = txtName.Text.Trim();
-            int groupId = _groupId;
+            int groupId = GroupId;
             string modelName = txtModelName.Text.Trim();
             string controlName = txtControlName.Text.Trim();
             Permission permission = new Permission()
@@ -198,7 +196,7 @@ namespace SuperM.UI.WinForm
                 ModelName = modelName,
                 ControlName = controlName
             };
-            _permissionService.UpdatePermissionByPermission(permission);
+            PermissionService.UpdatePermissionByPermission(permission);
             ReloadForm();
         }
 
@@ -219,7 +217,7 @@ namespace SuperM.UI.WinForm
 
         private void BindDataByName()
         {
-            var PermissionsBySearched = _permissionService.GetPermissionListByName(txtName.Text.Trim());
+            var PermissionsBySearched = PermissionService.GetPermissionListByName(txtName.Text.Trim());
             dgvPermission.DataSource = PermissionsBySearched;
         }
 
@@ -235,14 +233,13 @@ namespace SuperM.UI.WinForm
                     ((TextBox)item).Clear();
                 }
             }
-
             BindData();
             lsbGroup.SelectedIndex = -1;
             lsbModels.SelectedIndex = -1;
             lsbControls.SelectedIndex = -1;
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
-            _editId = -1;
+            EditId = -1;
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -259,7 +256,6 @@ namespace SuperM.UI.WinForm
         {
             bool isNameEmpty = false;
             isNameEmpty = VerificationHelper.IsInputBoxEmpty(txtName);
-
             return isNameEmpty;
         }
 

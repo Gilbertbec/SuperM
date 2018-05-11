@@ -7,7 +7,7 @@
 
     public class ChackOutService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         readonly decimal NationTaxRate = 0.07M;
 
@@ -21,12 +21,12 @@
 
         public ChackOutService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public List<Product> GetProductList()
         {
-            List<Product> products = _context.Inventories.Where(x => x.Count >= 0).Select(x => x.Product).ToList();
+            List<Product> products = Context.Inventories.Where(x => x.Count >= 0).Select(x => x.Product).ToList();
             return products;
         }
 

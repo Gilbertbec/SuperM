@@ -6,49 +6,49 @@ namespace SuperM.Business.Services
 
     public class CompanyService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public CompanyService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public dynamic GetCompanyList()
         {
-            var companys = _context.Companies.Select(x => new { x.CompanyId, x.Name, x.Address, x.TelephoneNumber, x.Fax, x.Email, x.Website }).ToList();
+            var companys = Context.Companies.Select(x => new { x.CompanyId, x.Name, x.Address, x.TelephoneNumber, x.Fax, x.Email, x.Website }).ToList();
             return companys;
         }
 
         public Company GetCompanyById(int companyId)
         {
-            Company company = _context.Companies.FirstOrDefault(x => x.CompanyId == companyId);
+            Company company = Context.Companies.FirstOrDefault(x => x.CompanyId == companyId);
             return company;
         }
 
         public dynamic GetCompanyListByName(string name)
         {
-            var companys = _context.Companies.Where(x => x.Name.Contains(name)).Select(x => new { x.CompanyId, x.Name, x.Address, x.TelephoneNumber, x.Fax, x.Email, x.Website }).ToList();
+            var companys = Context.Companies.Where(x => x.Name.Contains(name)).Select(x => new { x.CompanyId, x.Name, x.Address, x.TelephoneNumber, x.Fax, x.Email, x.Website }).ToList();
             return companys;
         }
 
         public bool IsNameExisted(string name)
         {
             bool isNameExisted = false;
-            isNameExisted = (_context.Companies.Count(x => x.Name == name) > 0);
+            isNameExisted = (Context.Companies.Count(x => x.Name == name) > 0);
             return isNameExisted;
         }
 
         public void Add(Company company)
         {
-            _context.Companies.Add(company);
-            _context.SaveChanges();
+            Context.Companies.Add(company);
+            Context.SaveChanges();
         }
 
         public void DeleteCompanyById(int companyId)
         {
             Company company = GetCompanyById(companyId);
-            _context.Companies.Remove(company);
-            _context.SaveChanges();
+            Context.Companies.Remove(company);
+            Context.SaveChanges();
         }
 
         public void UpdateCompanyByCompany(Company company)
@@ -65,7 +65,7 @@ namespace SuperM.Business.Services
                 Company.Website = company.Website;
                 Company.FatherCompanyId = company.FatherCompanyId;
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

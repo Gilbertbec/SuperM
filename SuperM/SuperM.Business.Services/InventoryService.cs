@@ -7,54 +7,54 @@ namespace SuperM.Business.Services
 
     public class InventoryService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public InventoryService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public List<Inventory> GetInventoryList()
         {
-            var inventorys = _context.Inventories.Where(x => x.Price > 0).ToList();
+            var inventorys = Context.Inventories.Where(x => x.Price > 0).ToList();
             return inventorys;
         }
 
         public Inventory GetInventoryById(int inventoryId)
         {
-            Inventory inventory = _context.Inventories.FirstOrDefault(x => x.InventoryId == inventoryId);
+            Inventory inventory = Context.Inventories.FirstOrDefault(x => x.InventoryId == inventoryId);
             return inventory;
         }
 
         public List<Inventory> GetInventoryListByName(string name)
         {
-            var inventorys = _context.Inventories.Where(x => x.Batch.Contains(name)).ToList();
+            var inventorys = Context.Inventories.Where(x => x.Batch.Contains(name)).ToList();
             return inventorys;
         }
 
         public Inventory GetInventoryByProductId(int productId)
         {
-            Inventory inventory = _context.Inventories.SingleOrDefault(x => x.ProductId == productId);
+            Inventory inventory = Context.Inventories.SingleOrDefault(x => x.ProductId == productId);
             return inventory;
         }
 
         public Inventory GetInventoryByProductIdAndSupplierId(int productId, int supplierId)
         {
-            Inventory inventory = _context.Inventories.SingleOrDefault(x => x.ProductId == productId && x.SupplierId == supplierId);
+            Inventory inventory = Context.Inventories.SingleOrDefault(x => x.ProductId == productId && x.SupplierId == supplierId);
             return inventory;
         }
 
         public bool IsNameExisted(string name)
         {
             bool isNameExisted = false;
-            isNameExisted = (_context.Inventories.Count(x => x.Batch == name) > 0);
+            isNameExisted = (Context.Inventories.Count(x => x.Batch == name) > 0);
             return isNameExisted;
         }
 
         public bool IsProductAndSupplierExisted(Inventory inventory)
         {
             bool isProductAndSupplierExisted = false;
-            isProductAndSupplierExisted = (_context.Inventories.Count(x => x.ProductId == inventory.ProductId && x.SupplierId == inventory.SupplierId) > 0);
+            isProductAndSupplierExisted = (Context.Inventories.Count(x => x.ProductId == inventory.ProductId && x.SupplierId == inventory.SupplierId) > 0);
             return isProductAndSupplierExisted;
         }
 
@@ -62,7 +62,7 @@ namespace SuperM.Business.Services
         {
             if (!IsProductAndSupplierExisted(inventory))
             {
-                _context.Inventories.Add(inventory);
+                Context.Inventories.Add(inventory);
             }
             else
             {
@@ -73,14 +73,14 @@ namespace SuperM.Business.Services
                 }
 
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public void DeleteInventoryById(int inventoryId)
         {
             Inventory inventory = GetInventoryById(inventoryId);
-            _context.Inventories.Remove(inventory);
-            _context.SaveChanges();
+            Context.Inventories.Remove(inventory);
+            Context.SaveChanges();
         }
 
         public void SaleOut(int productId, int Quantity)
@@ -90,7 +90,7 @@ namespace SuperM.Business.Services
             {
                 Inventory.Count -= Quantity;
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public void UpdateInventoryByInventory(Inventory inventory)
@@ -110,7 +110,7 @@ namespace SuperM.Business.Services
                 Inventory.StockIn = inventory.StockIn;
                 Inventory.InStockTime = inventory.InStockTime;
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

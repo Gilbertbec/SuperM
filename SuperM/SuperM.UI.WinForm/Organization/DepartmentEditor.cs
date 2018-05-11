@@ -10,9 +10,9 @@ namespace SuperM.UI.WinForm
         /// <summary>
 		/// Declaration
 		/// </summary>
-        DepartmentService _departmentService = new DepartmentService();
+        DepartmentService DepartmentService = new DepartmentService();
 
-        int _editId = -1;
+        int EditId = -1;
 
         /// <summary>
 		/// Load
@@ -30,9 +30,9 @@ namespace SuperM.UI.WinForm
 
         private void BindData()
         {
-            ServiceFacade _serviceFacade = new Business.Services.ServiceFacade();
-            _serviceFacade.FillDepartmentDataGridView(this.dgvDepartment);
-            _serviceFacade.FillCompanyComboBox(this.cboCompany);
+            ServiceFacade serviceFacade = new Business.Services.ServiceFacade();
+            serviceFacade.FillDepartmentDataGridView(this.dgvDepartment);
+            serviceFacade.FillCompanyComboBox(this.cboCompany);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace SuperM.UI.WinForm
             }
 
             var Department = new Department();
-            if (_departmentService.IsNameExisted(txtName.Text.Trim()))
+            if (DepartmentService.IsNameExisted(txtName.Text.Trim()))
             {
                 MessageBox.Show("This " + txtName.Text.Trim() + " already exists.");
             }
@@ -56,7 +56,7 @@ namespace SuperM.UI.WinForm
             {
                 Department.Name = txtName.Text;
                 Department.CompanyId = (int)cboCompany.SelectedValue;
-                _departmentService.Add(Department);
+                DepartmentService.Add(Department);
             }
 
             ReloadForm();
@@ -75,7 +75,7 @@ namespace SuperM.UI.WinForm
 
             if (dialogResult == DialogResult.OK)
             {
-                _departmentService.DeleteDepartmentById(DepartmentId);
+                DepartmentService.DeleteDepartmentById(DepartmentId);
                 ReloadForm();
             }
         }
@@ -92,8 +92,8 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            _editId = (int)dgvDepartment.CurrentRow.Cells["DepartmentId"].Value;
-            Department department = _departmentService.GetDepartmentById(_editId);
+            EditId = (int)dgvDepartment.CurrentRow.Cells["DepartmentId"].Value;
+            Department department = DepartmentService.GetDepartmentById(EditId);
             DisplayInformation(department);
 
             btnAdd.Enabled = false;
@@ -107,7 +107,7 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            int departmentId = _editId;
+            int departmentId = EditId;
             string name = txtName.Text.Trim();
             int companyId = (int)cboCompany.SelectedValue;
             Department department = new Department()
@@ -117,7 +117,7 @@ namespace SuperM.UI.WinForm
                 CompanyId = companyId
             };
 
-            _departmentService.UpdateDepartmentByDepartment(department);
+            DepartmentService.UpdateDepartmentByDepartment(department);
             ReloadForm();
         }
 
@@ -138,7 +138,7 @@ namespace SuperM.UI.WinForm
 
         private void BindDataByName()
         {
-            var DepartmentsBySearched = _departmentService.GetDepartmentListByName(txtName.Text.Trim());
+            var DepartmentsBySearched = DepartmentService.GetDepartmentListByName(txtName.Text.Trim());
             dgvDepartment.DataSource = DepartmentsBySearched;
         }
 
@@ -154,11 +154,10 @@ namespace SuperM.UI.WinForm
                     ((TextBox)item).Clear();
                 }
             }
-
             BindData();
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
-            _editId = -1;
+            EditId = -1;
         }
 
         private void btnClear_Click(object sender, EventArgs e)

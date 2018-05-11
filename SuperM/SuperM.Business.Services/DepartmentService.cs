@@ -7,49 +7,49 @@ namespace SuperM.Business.Services
 
     public class DepartmentService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public DepartmentService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public List<Department> GetDepartmentList()
         {
-            var departments = _context.Departments.ToList();
+            var departments = Context.Departments.ToList();
             return departments;
         }
 
         public Department GetDepartmentById(int departmentId)
         {
-            Department department = _context.Departments.FirstOrDefault(x => x.DepartmentId == departmentId);
+            Department department = Context.Departments.FirstOrDefault(x => x.DepartmentId == departmentId);
             return department;
         }
 
         public List<Department> GetDepartmentListByName(string name)
         {
-            var departments = _context.Departments.Where(x => x.Name.Contains(name)).ToList();
+            var departments = Context.Departments.Where(x => x.Name.Contains(name)).ToList();
             return departments;
         }
 
         public bool IsNameExisted(string name)
         {
             bool isNameExisted = false;
-            isNameExisted = (_context.Departments.Count(x => x.Name == name) > 0);
+            isNameExisted = (Context.Departments.Count(x => x.Name == name) > 0);
             return isNameExisted;
         }
 
         public void Add(Department department)
         {
-            _context.Departments.Add(department);
-            _context.SaveChanges();
+            Context.Departments.Add(department);
+            Context.SaveChanges();
         }
 
         public void DeleteDepartmentById(int departmentId)
         {
             Department department = GetDepartmentById(departmentId);
-            _context.Departments.Remove(department);
-            _context.SaveChanges();
+            Context.Departments.Remove(department);
+            Context.SaveChanges();
         }
 
         public void UpdateDepartmentByDepartment(Department department)
@@ -62,7 +62,7 @@ namespace SuperM.Business.Services
                 Department.CompanyId = department.CompanyId;
                 Department.Company = department.Company;
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

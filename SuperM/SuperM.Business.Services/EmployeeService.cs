@@ -7,49 +7,49 @@ namespace SuperM.Business.Services
 
     public class EmployeeService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public EmployeeService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public dynamic GetEmployeeList()
         {
-            var employees = _context.Employees.Select(x => new { x.EmployeeId, x.Name, x.Gender, DepartmentName = x.Department.Name, PositionName = x.Position.Name, x.FirstName, x.MiddleName, x.Language, x.Education, x.Profession, x.Specialty, x.FamilyAddress, x.BirthDay, x.EntryTime, x.EmergencyContact, x.Photo }).ToList();
+            var employees = Context.Employees.Select(x => new { x.EmployeeId, x.Name, x.Gender, DepartmentName = x.Department.Name, PositionName = x.Position.Name, x.FirstName, x.MiddleName, x.Language, x.Education, x.Profession, x.Specialty, x.FamilyAddress, x.BirthDay, x.EntryTime, x.EmergencyContact, x.Photo }).ToList();
             return employees;
         }
 
         public Employee GetEmployeeById(int employeeId)
         {
-            Employee employee = _context.Employees.FirstOrDefault(x => x.EmployeeId == employeeId);
+            Employee employee = Context.Employees.FirstOrDefault(x => x.EmployeeId == employeeId);
             return employee;
         }
 
         public List<Employee> GetEmployeeListByName(string name)
         {
-            var employees = _context.Employees.Where(x => x.Name.Contains(name)).ToList();
+            var employees = Context.Employees.Where(x => x.Name.Contains(name)).ToList();
             return employees;
         }
 
         public bool IsNameExisted(string name)
         {
             bool isNameExisted = false;
-            isNameExisted = (_context.Employees.Count(x => x.Name == name) > 0);
+            isNameExisted = (Context.Employees.Count(x => x.Name == name) > 0);
             return isNameExisted;
         }
 
         public void Add(Employee employee)
         {
-            _context.Employees.Add(employee);
-            _context.SaveChanges();
+            Context.Employees.Add(employee);
+            Context.SaveChanges();
         }
 
         public void DeleteEmployeeById(int employeeId)
         {
             Employee employee = GetEmployeeById(employeeId);
-            _context.Employees.Remove(employee);
-            _context.SaveChanges();
+            Context.Employees.Remove(employee);
+            Context.SaveChanges();
         }
 
         public void UpdateEmployeeByEmployee(Employee employee)
@@ -75,7 +75,7 @@ namespace SuperM.Business.Services
                 Employee.EmergencyContact = employee.EmergencyContact;
                 Employee.Photo = employee.Photo;
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

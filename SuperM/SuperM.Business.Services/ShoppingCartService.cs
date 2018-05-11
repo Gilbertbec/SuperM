@@ -7,34 +7,34 @@ namespace SuperM.Business.Services
 
     public class ShoppingCartService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public ShoppingCartService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public List<ShoppingCart> GetShoppingCartList()
         {
-            var shoppingCarts = _context.ShoppingCarts.ToList();
+            var shoppingCarts = Context.ShoppingCarts.ToList();
             return shoppingCarts;
         }
 
         public ShoppingCart GetShoppingCartById(int shoppingCartId)
         {
-            ShoppingCart shoppingCart = _context.ShoppingCarts.FirstOrDefault(x => x.ShoppingCartId == shoppingCartId);
+            ShoppingCart shoppingCart = Context.ShoppingCarts.FirstOrDefault(x => x.ShoppingCartId == shoppingCartId);
             return shoppingCart;
         }
 
         public List<ShoppingCart> GetShoppingCartByCustomerId(int customerId)
         {
-            List<ShoppingCart> shoppingCarts = _context.ShoppingCarts.Where(x => x.CustomerId == customerId).ToList();
+            List<ShoppingCart> shoppingCarts = Context.ShoppingCarts.Where(x => x.CustomerId == customerId).ToList();
             return shoppingCarts;
         }
 
         public ShoppingCart GetShoppingCartByCustomerIdAndProductId(int customerId, int productId)
         {
-            var shoppingCart = _context
+            var shoppingCart = Context
                 .ShoppingCarts
                 .FirstOrDefault(x => x.CustomerId == customerId && x.ProductId == productId);
 
@@ -43,15 +43,15 @@ namespace SuperM.Business.Services
 
         public void Add(ShoppingCart shoppingCart)
         {
-            _context.ShoppingCarts.Add(shoppingCart);
-            _context.SaveChanges();
+            Context.ShoppingCarts.Add(shoppingCart);
+            Context.SaveChanges();
         }
 
         public void DeleteShoppingCartById(int shoppingCartId)
         {
             ShoppingCart shoppingCart = GetShoppingCartById(shoppingCartId);
-            _context.ShoppingCarts.Remove(shoppingCart);
-            _context.SaveChanges();
+            Context.ShoppingCarts.Remove(shoppingCart);
+            Context.SaveChanges();
         }
 
         public void UpdateShoppingCartByShoppingCart(ShoppingCart shoppingCart)
@@ -67,7 +67,7 @@ namespace SuperM.Business.Services
                 Add(shoppingCart);
             }
 
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace SuperM.UI.WinForm
     {
         UserService UserService = new UserService();
 
-        int _editId;
+        int EditId = -1;
 
         IUserHolder _userHolder;
 
@@ -44,9 +44,8 @@ namespace SuperM.UI.WinForm
                     ((TextBox)item).Clear();
                 }
             }
-
             BindData();
-            _editId = -1;
+            EditId = -1;
         }
 
         private void BindDataByName()
@@ -74,15 +73,15 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            _editId = Convert.ToInt32(dgvUsers.CurrentRow.Cells["UserId"].Value);
+            EditId = Convert.ToInt32(dgvUsers.CurrentRow.Cells["UserId"].Value);
             txtName.Text = dgvUsers.CurrentRow.Cells["Name"].Value.ToString();
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (_editId != -1)
+            if (EditId != -1)
             {
-                _userHolder.UserId = _editId;
+                _userHolder.UserId = EditId;
                 this.Close();
                 this.Dispose();
             }

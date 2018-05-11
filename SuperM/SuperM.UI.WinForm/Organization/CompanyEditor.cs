@@ -10,9 +10,9 @@ namespace SuperM.UI.WinForm
         /// <summary>
 		/// Declaration
 		/// </summary>
-        CompanyService _companyService = new CompanyService();
+        CompanyService CompanyService = new CompanyService();
 
-        int _editId = -1;
+        int EditId = -1;
 
         /// <summary>
 		/// Load
@@ -48,7 +48,7 @@ namespace SuperM.UI.WinForm
             }
 
 
-            if (_companyService.IsNameExisted(txtName.Text.Trim()))
+            if (CompanyService.IsNameExisted(txtName.Text.Trim()))
             {
                 MessageBox.Show("This " + txtName.Text.Trim() + " already exists.");
             }
@@ -65,7 +65,7 @@ namespace SuperM.UI.WinForm
                     FatherCompanyId = (int)cboFatherCompany.SelectedValue
                 };
 
-                _companyService.Add(Company);
+                CompanyService.Add(Company);
             }
 
             ReloadForm();
@@ -84,7 +84,7 @@ namespace SuperM.UI.WinForm
 
             if (dialogResult == DialogResult.OK)
             {
-                _companyService.DeleteCompanyById(CompanyId);
+                CompanyService.DeleteCompanyById(CompanyId);
                 ReloadForm();
             }
         }
@@ -101,8 +101,8 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            _editId = Convert.ToInt32(dgvCompany.CurrentRow.Cells["CompanyId"].Value);
-            Company company = _companyService.GetCompanyById(_editId);
+            EditId = Convert.ToInt32(dgvCompany.CurrentRow.Cells["CompanyId"].Value);
+            Company company = CompanyService.GetCompanyById(EditId);
             DisplayInformation(company);
 
             btnAdd.Enabled = false;
@@ -116,7 +116,7 @@ namespace SuperM.UI.WinForm
                 return;
             }
 
-            int companyId = _editId;
+            int companyId = EditId;
             string name = txtName.Text.Trim();
             string address = txtAddress.Text.Trim();
             string telephoneNumber = txtTelephoneNumber.Text.Trim();
@@ -137,7 +137,7 @@ namespace SuperM.UI.WinForm
                 FatherCompanyId = fatherCompanyId
             };
 
-            _companyService.UpdateCompanyByCompany(company);
+            CompanyService.UpdateCompanyByCompany(company);
             ReloadForm();
         }
 
@@ -160,7 +160,7 @@ namespace SuperM.UI.WinForm
 
         private void BindDataByName()
         {
-            var CompanysBySearched = _companyService.GetCompanyListByName(txtName.Text.Trim());
+            var CompanysBySearched = CompanyService.GetCompanyListByName(txtName.Text.Trim());
             dgvCompany.DataSource = CompanysBySearched;
         }
 
@@ -187,11 +187,10 @@ namespace SuperM.UI.WinForm
                     ((MaskedTextBox)item).Clear();
                 }
             }
-
             BindData();
             btnAdd.Enabled = true;
             btnUpdate.Enabled = false;
-            _editId = -1;
+            EditId = -1;
         }
 
         /// <summary>
@@ -203,7 +202,6 @@ namespace SuperM.UI.WinForm
         {
             bool isNameEmpty = false;
             isNameEmpty = VerificationHelper.IsInputBoxEmpty(txtName);
-
             return isNameEmpty;
         }
 

@@ -4,11 +4,11 @@
 
     public class TypeService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public TypeService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public void GetAllTypes()

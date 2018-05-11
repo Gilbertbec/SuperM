@@ -8,34 +8,34 @@ namespace SuperM.Business.Services
 
     public class UserService
     {
-        private SuperMContext _context;
+        private SuperMContext Context;
 
         public UserService()
         {
-            _context = new SuperMContext();
+            Context = new SuperMContext();
         }
 
         public List<User> GetUserList()
         {
-            var users = _context.Users.ToList();
+            var users = Context.Users.ToList();
             return users;
         }
 
         public User GetUserById(int userId)
         {
-            User user = _context.Users.FirstOrDefault(x => x.UserId == userId);
+            User user = Context.Users.FirstOrDefault(x => x.UserId == userId);
             return user;
         }
 
         public List<User> GetUserByName(string name)
         {
-            List<User> user = _context.Users.Where(x => x.Name.Contains(name)).Select(x => x).ToList();
+            List<User> user = Context.Users.Where(x => x.Name.Contains(name)).Select(x => x).ToList();
             return user;
         }
 
         public User GetUserByNameForLogin(string name)
         {
-            User user = _context.Users.First(x => x.Name == name);
+            User user = Context.Users.First(x => x.Name == name);
             return user;
         }
 
@@ -43,20 +43,20 @@ namespace SuperM.Business.Services
         {
             //bool isNameExisted = false;
             //isNameExisted = (_context.Users.Any(x => x.Name == name) > 0);
-            return _context.Users.Any(x => x.Name.Equals(name, StringComparison.Ordinal));
+            return Context.Users.Any(x => x.Name.Equals(name, StringComparison.Ordinal));
         }
 
         public void Add(User user)
         {
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            Context.Users.Add(user);
+            Context.SaveChanges();
         }
 
         public void DeleteUserById(int userId)
         {
             User user = GetUserById(userId);
-            _context.Users.Remove(user);
-            _context.SaveChanges();
+            Context.Users.Remove(user);
+            Context.SaveChanges();
         }
 
         public void UpdateUserByUser(User user)
@@ -68,7 +68,7 @@ namespace SuperM.Business.Services
                 User.Name = user.Name;
                 User.Password = user.Password;
             }
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

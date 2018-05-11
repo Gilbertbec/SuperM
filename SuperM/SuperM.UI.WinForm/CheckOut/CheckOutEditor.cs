@@ -7,17 +7,17 @@
 
     public partial class CheckOutEditor : Form
     {
-        InventoryService _inventoryService = new InventoryService();
+        InventoryService InventoryService = new InventoryService();
 
-        ServiceFacade _serviceFacade = new Business.Services.ServiceFacade();
+        ServiceFacade ServiceFacade = new Business.Services.ServiceFacade();
 
-        ChackOutService _checkOutService = new ChackOutService();
+        ChackOutService CheckOutService = new ChackOutService();
 
-        ProductService _productService = new ProductService();
+        ProductService ProductService = new ProductService();
 
-        int _editId = -1;
+        int EditId = -1;
 
-        int _orderId = -1;
+        int OrderId = -1;
 
         public CheckOutEditor()
         {
@@ -33,17 +33,17 @@
 
         private void BindOrderDetails()
         {
-            _serviceFacade.FillOrderDetailsDataGridView(this.dgvOrderDetails, _orderId);
+            ServiceFacade.FillOrderDetailsDataGridView(this.dgvOrderDetails, OrderId);
         }
 
         private void BindOrder()
         {
-            _serviceFacade.FillOrderDataGridView(this.dgvOrder, _orderId);
+            ServiceFacade.FillOrderDataGridView(this.dgvOrder, OrderId);
         }
 
         private void BindData()
         {
-            _serviceFacade.FillInventoryDataGridView(this.dgvInventory);
+            ServiceFacade.FillInventoryDataGridView(this.dgvInventory);
         }
 
         /// <summary>
@@ -58,8 +58,8 @@
                 return;
             }
 
-            _editId = (int)dgvInventory.CurrentRow.Cells["InventoryId"].Value;
-            Inventory inventory = _inventoryService.GetInventoryById(_editId);
+            EditId = (int)dgvInventory.CurrentRow.Cells["InventoryId"].Value;
+            Inventory inventory = InventoryService.GetInventoryById(EditId);
             DisplayInformation(inventory);
         }
 
@@ -70,40 +70,36 @@
                 UserId = UserLogined.UserId,
                 OrderTime = DateTime.Now,
             };
-
-            _orderId = _checkOutService.GetNewOrderId(order);
-            txtOrderId.Text = _orderId.ToString();
+            OrderId = CheckOutService.GetNewOrderId(order);
+            txtOrderId.Text = OrderId.ToString();
         }
 
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
-            int orderId = _orderId;
+            int orderId = OrderId;
             int productId = Convert.ToInt32(txtProductId.Text.Trim());
-            Product product = _productService.GetProductById(productId);
+            Product product = ProductService.GetProductById(productId);
             int quantity = Convert.ToInt32(txtQuantity.Text.Trim());
-
-            _checkOutService.AddProduct(product, orderId, quantity);
-
+            CheckOutService.AddProduct(product, orderId, quantity);
             BindOrder();
             BindOrderDetails();
         }
 
         private void btnRemoveProduct_Click(object sender, EventArgs e)
         {
-            int orderId = _orderId;
+            int orderId = OrderId;
             int productId = Convert.ToInt32(txtProductId.Text.Trim());
-            Product product = _productService.GetProductById(productId);
+            Product product = ProductService.GetProductById(productId);
             int quantity = Convert.ToInt32(txtQuantity.Text.Trim());
-
-            _checkOutService.RomoveProduct(product, orderId, quantity);
+            CheckOutService.RomoveProduct(product, orderId, quantity);
             BindOrder();
             BindOrderDetails();
         }
 
         private void btnCheckOut_Click(object sender, EventArgs e)
         {
-            int orderId = _orderId;
-            OrderAndOrderDetailForCheckOut checkOut = _checkOutService.CheckOut(orderId);
+            int orderId = OrderId;
+            OrderAndOrderDetailForCheckOut checkOut = CheckOutService.CheckOut(orderId);
             Receipt receipt = new Receipt(checkOut);
             receipt.Show();
         }
